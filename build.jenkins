@@ -1,0 +1,50 @@
+pipeline {
+    agent {
+        label 'linux'
+    }
+    stages {
+        stage('Preparation') {
+            steps {
+                timeout(time: 15, unit: 'MINUTES') {
+                    ansiColor('xterm') {
+                        sh 'pub update'
+                    }
+                }
+
+            }
+        }
+        stage('Analyze') {
+            steps {
+                ansiColor('xterm') {
+                    sh 'dartanalyzer lib/'
+
+                    // Funkt nicht weil einige File
+                    // aufgrund von reflectable fehlen
+                    // sh 'dartanalyzer test/'
+                    // sh 'dartanalyzer example/browser/reflection/web/'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                ansiColor('xterm') {
+                    sh 'pub run build_runner test --delete-conflicting-outputs'
+                    sh 'pub run build_runner test --delete-conflicting-outputs -- -p chrome'
+                    }
+            }
+        }
+
+        stage('Deploy samples') {
+            steps {
+                timeout(time: 30, unit: 'MINUTES') {
+                    ansiColor('xterm') {
+                        sh 'deploySamples.sh --update'
+                        sh 'deploySamples.sh --deploy --release'
+                        sh 'deploySamples.sh --publish --force'
+                    }
+                }
+            }
+        }
+    }
+}
+                       

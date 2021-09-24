@@ -1,0 +1,22 @@
+name: reflected_mustache
+version: 1.0.11
+
+author: Mike Mitterer <office@mikemitterer.at>
+description: Mustache template library
+homepage: https://github.com/MikeMitterer/relected_mustache
+
+environment:
+  sdk: ">=2.0.0 <3.0.0"
+
+dependencies:
+  reflectable: ^2.0.0
+  # path: /Volumes/Daten/DevLocal/DevDart/reflectable
+
+  logging: '>=0.11.3 <1.0.0'
+
+dev_dependencies:
+  test: any
+
+  build_runner: any
+  build_test: any
+  build_web_compilers: any

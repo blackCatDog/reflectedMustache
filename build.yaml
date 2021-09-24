@@ -1,0 +1,13 @@
+# Read about `build.yaml` at https://pub.dartlang.org/packages/build_config
+targets:
+  $default:
+    builders:
+      reflectable:
+        generate_for:
+          exclude:
+          - example/**.dart
+          - lib/**.dart
+          - test/mustache_specs.dart
+          - test/parser_test.dart
+        options:
+          formatted: true
